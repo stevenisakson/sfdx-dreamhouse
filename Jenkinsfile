@@ -5,6 +5,7 @@ node {
     def BUILD_NUMBER=env.BUILD_NUMBER
     def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
     def SFDC_USERNAME
+    def DEV_USERNAME = "steven.isakson@slalom.com.cancdci"
 
     def HUB_ORG=env.HUB_ORG_DH
     def SFDC_HOST = env.SFDC_HOST_DH
@@ -54,9 +55,9 @@ node {
         
           stage('Push To Test Org') {
               if (isUnix()) {
-                    rc = sh returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${SFDC_USERNAME}"
+                    rc = sh returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${DEV_USERNAME}"
               }else{
-                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${SFDC_USERNAME}"
+                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:source:push --targetusername ${DEV_USERNAME}"
               }
             if (rc != 0) {
                 error 'push failed'
